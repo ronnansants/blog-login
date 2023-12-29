@@ -1,0 +1,17 @@
+<%- include('partials/header.ejs') %>
+<%- include('partials/navbar.ejs') %>
+
+<div class="container-lg">
+    <div class="text-center sticky-top my-3">
+        <a href="https://www.linkedin.com/in/ronnan-santos-070484190/">
+        <img src="/images/my-cover.gif" class="img-fluid w-50"></img></a>
+    </div>
+
+    <div class="jumbotron rounded-4 ps-5 pe-3 py-3 bg-camo my-4">
+        <h1 class="fw-bolder fs-1 text-center"><%= itens.title %></h1>
+        <hr class="my-4">
+        <p class="text-nowrap"><%- itens.body %></p>
+    </div>
+
+</div>
+<%- include('partials/footer.ejs'); %>

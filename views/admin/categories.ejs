@@ -1,0 +1,68 @@
+<%- include('../partials/header.ejs'); %>
+<%- include('../partials/navbar.ejs'); %>
+<div class="container">
+    <div class="bg-camo form-control my-3 pb-3">
+        <form action="/admin/categoriesNew" method="post">
+            <p class="h1 fw-bold text-center text-capitalize">Category Register</p>
+                <input type="text" name="titleCategory" placeholder="set title for category" class="form-control text-uppercase fs-3">
+                <div class="row mt-3 px-3">
+                    <button type="submit" class="btn btn-success col-6 offset-1 d-inline" name="registerCategory">Add</button>
+                    <button type="reset" class="btn btn-danger d-inline col-2 offset-2">Reset</button>
+                </div>
+        </form>
+    </div>
+    <div class="my-3 text-center text-body-secondary">
+        <span class="h2 fw-bold text-capitalize">added</span>
+    </div>
+</div>
+<div class="container-lg p-0">
+    <% if(items.length > 0 && items != null) { %>
+        <table class="table table-dark table-hover table-striped table-bordered">
+            <thead>
+              <tr>
+                <th scope="col" class="text-center">ID</th>
+                <th scope="col">Title</th>
+                <th scope="col">Slug</th>
+                <th class="text-center" scope="col">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+    <% items.forEach( (items)=>{%>
+
+              <tr>
+                <th scope="row" class="text-center"><%= items.id %></th>
+                <td><%= items.title %></td>
+                <td><%= items.slug %></td>
+                <td class="text-center">
+                    <a href="/admin/categories/edit/<%= items.id %>" class="btn btn-warning d-inline px-2 py-1 px-sm-2 p-0"  data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="Edit"><i class="fa-solid fa-pen-to-square"></i></a>
+
+                    <form action="/admin/categories/delete" method="post" class="d-inline" onsubmit="reallyDel(event, this)">
+                        <input type="hidden" name="id" id="id" value="<%= items.id %>"></input>
+                    <button type="submit" class="btn btn-danger d-inline px-2 px-md-3 py-1 mt-1 mt-sm-0 ms-sm-2" data-bs-toggle="tooltip" data-bs-placement="right"
+                    data-bs-custom-class="custom-tooltip" data-bs-title="Exclude"><i class="fa-solid fa-delete-left"></i></button>
+                    </form>
+                </td>
+              </tr>
+
+    <% }) %>
+            </tbody>
+        </table>
+
+    <% }else{ %>
+    <div class="card">
+        <div class="card-body text-center">
+            <p class="fs-4 text-capitalize">Nenhuma categoria cadastrada</p>
+        </div>
+    </div>
+    <% } %>
+</div>
+<%- include('../partials/footer.ejs'); %>
+<script>
+    function reallyDel(event, form){
+        event.preventDefault();
+        let exclude = confirm("Deseja excluir a categoria?");
+        if(exclude){
+            form.submit();
+        }
+    }
+</script>

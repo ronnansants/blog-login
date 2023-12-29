@@ -1,0 +1,18 @@
+<%- include('../partials/header.ejs'); %>
+<%- include('../partials/navbar.ejs'); %>
+<div class="container">
+    <form action="/admin/categories/edit/<%= item.id %>" method="post" class="bg-camo form-control py-4 my-3">
+        <p class="h1 fw-bold text-center text-uppercase mb-3">Editing Category</p>
+        <div class="row">
+            <input type="text" name="titleId" placeholder="ID" class="col-2 text-center form-control fs-3 ms-4" readonly value="<%= item.id %>" style="width: 5rem;" >
+            <input type="text" name="titleCategory" placeholder="set title for category" class="col form-control text-uppercase fs-3 mx-4 text-capitalize">
+        </div>
+            <div class="row mt-3 px-3">
+                <button type="submit" class="btn btn-success col-6 offset-1 d-inline" name="registerCategory">EDIT</button>
+                <a href="/admin/categories" class="btn btn-danger d-inline col-2 offset-2">Cancel</a>
+            </div>
+    </form>
+</div>
+
+
+<%- include('../partials/footer.ejs'); %>

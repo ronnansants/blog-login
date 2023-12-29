@@ -1,0 +1,25 @@
+<%- include('partials/header.ejs') %>
+<%- include('partials/navbar.ejs') %>
+<div class="container-lg py-2">
+    <div class="text-center">
+        <img src="/images/newspaper.jpg" class="d-inline rounded-start-5 img-fluid m-0" style="height: 20rem;">
+        <img src="/images/newspaper2.jpg" class="d-inline rounded-end-5 img-fluid m-0" style="height: 20rem;">
+    </div>
+    <% if(itens.length > 0 && itens != null) { %>
+    <p class="fw-bolder fs-1 pb-0 mt-3 text-center">Recently News</p>
+    <% itens.forEach( (itens) => { %>
+    <div class="card my-4">
+        <a href="/article=<%= itens.slug %>" class="text-decoration-none text-black">
+        <div class="card-header">
+            <!-- Titulo da notícia -->
+            <h3 class="card-title text-center"><%= itens.title %> </h3>
+        </div>
+        <div class="card-footer text-muted text-center fs-6 bg-info-subtle">
+            Clique para ler
+        </div></a>
+    </div>
+    <% })}%>
+    
+
+</div>
+<%- include('partials/footer.ejs'); %>

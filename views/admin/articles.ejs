@@ -1,0 +1,62 @@
+<%- include('../partials/header.ejs'); %>
+<%- include('../partials/navbar.ejs'); %>
+<div class="container">
+    <div class="row">
+        <a href="/admin/articlesNew" class="btn text-center btn-success fs-3 w-100 fw-bolder my-3">Create Article</a>
+    </div>
+    <div class="my-3 text-center text-body-secondary">
+        <span class="h2 fw-bold text-capitalize">Recently</span>
+    </div>
+</div>
+<div class="container-lg p-0">
+    <% if(items.length > 0 && items != null) { %>
+        <table class="table table-dark table-hover table-striped table-bordered">
+            <thead>
+              <tr class="text-center">
+                <th scope="col" class="text-center">ID</th>
+                <th scope="col">Title</th>
+                <th scope="col">SLUG</th>
+                <th scope="col">Category</th>
+                <th class="text-center">Actions</th>
+              </tr>
+            </thead>
+            <tbody class="text-center">
+    <% items.forEach( (items)=>{%>
+              <tr>
+                <th scope="row" class="text-center"><%= items.id %></th>
+                <td><%= items.title %></td>
+                <td><%= items.slug %></td>
+                <td><%= items.category.title %></td>
+                <td class="text-center">
+                    <!-- <a href="xxxx" class="btn btn-warning d-inline px-2 py-1 px-sm-2 p-0"  data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="Edit"><i class="fa-solid fa-pen-to-square"></i></a> -->
+
+                    <form action="/admin/articlesDel" method="post" class="d-inline" onsubmit="reallyDel(event, this)">
+                        <input type="hidden" name="id" id="id" value="<%= items.id %>"></input>
+                    <button type="submit" class="btn btn-danger d-inline px-2 px-md-3 py-1 mt-1 mt-sm-0 ms-sm-2" data-bs-toggle="tooltip" data-bs-placement="right"
+                    data-bs-custom-class="custom-tooltip" data-bs-title="Exclude"><i class="fa-solid fa-delete-left"></i></button>
+                    </form>
+                </td>
+              </tr>
+
+    <% }) %>
+            </tbody>
+        </table>
+
+    <% }else{ %>
+    <div class="card">
+        <div class="card-body text-center">
+            <p class="fs-4 text-capitalize">Nenhum artigo cadastrado</p>
+        </div>
+    </div>
+    <% } %>
+</div>
+<%- include('../partials/footer.ejs'); %>
+<script>
+    function reallyDel(event, form){
+        event.preventDefault();
+        let exclude = confirm("Deseja excluir o artigo?");
+        if(exclude){
+            form.submit();
+        }
+    }
+</script>
