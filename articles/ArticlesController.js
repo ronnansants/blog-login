@@ -34,7 +34,7 @@ router.get('/admin/articles',  (req, res) => {
 
 router.get('/admin/articlesNew', function(req, res) {
     mdCategory.findAll({order: [['title', 'asc']]}).then( itens => {
-        res.render('admin/articlesNew',{category : itens })
+        res.render('admin/articlesNew',{category: itens })
     })
 });
 
@@ -48,6 +48,28 @@ router.post('/admin/articlesSave', function(req, res) {
             res.redirect('/admin/articles')
     }).catch(function(err) {
         console.log('Erro ao salvar artigo. msg: '+err);
+    })
+})
+
+router.get('/admin/articlesEdit/:id',  (req, res) => {
+    let id = req.params.id;
+
+    mdArticle.findOne({
+        where: {
+            id: id}
+    }).then(function(article){
+        if(article && article != undefined){
+            mdCategory.findAll({
+                order:[['id','asc']],
+                attributes: ['id', 'title']
+            }).then((categories) => {
+                res.render('/admin/articlesEdit', {data: article, category: categories})
+            })
+        }else{
+            res.redirect('/admin/articles')
+        }
+    }).catch(function(err){
+        console.log("Error on find articles to edit. Msg:"+err)
     })
 })
 

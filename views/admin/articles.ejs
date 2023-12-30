@@ -20,7 +20,7 @@
                 <th class="text-center">Actions</th>
               </tr>
             </thead>
-            <tbody class="text-center">
+            <tbody class="text-center align-middle">
     <% items.forEach( (items)=>{%>
               <tr>
                 <th scope="row" class="text-center"><%= items.id %></th>
@@ -28,11 +28,11 @@
                 <td><%= items.slug %></td>
                 <td><%= items.category.title %></td>
                 <td class="text-center">
-                    <!-- <a href="xxxx" class="btn btn-warning d-inline px-2 py-1 px-sm-2 p-0"  data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="Edit"><i class="fa-solid fa-pen-to-square"></i></a> -->
+                    <a href="/admin/articlesEdit/<%= items.id %>" class="btn btn-warning d-inline d-lg-inline-block px-1 px-lg-2 py-0 py-lg-2 p-0"><i class="fa-solid fa-pen-to-square"></i></a>
 
-                    <form action="/admin/articlesDel" method="post" class="d-inline" onsubmit="reallyDel(event, this)">
+                    <form action="/admin/articlesDel" method="post" class="d-inline d-lg-inline-block" onsubmit="reallyDel(event, this)">
                         <input type="hidden" name="id" id="id" value="<%= items.id %>"></input>
-                    <button type="submit" class="btn btn-danger d-inline px-2 px-md-3 py-1 mt-1 mt-sm-0 ms-sm-2" data-bs-toggle="tooltip" data-bs-placement="right"
+                    <button type="submit" class="btn btn-danger d-inline d-lg-inline-block px-1 px-lg-3 py-0 py-lg-2 mt-1 mt-lg-0 ms-lg-2 " data-bs-toggle="tooltip" data-bs-placement="right"
                     data-bs-custom-class="custom-tooltip" data-bs-title="Exclude"><i class="fa-solid fa-delete-left"></i></button>
                     </form>
                 </td>
