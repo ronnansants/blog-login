@@ -42,16 +42,23 @@ router.post('/admin/articlesSave', function(req, res) {
     const title = req.body.articleTitle;
     const body = req.body.articleBody;
     const category = req.body.articleCategory;
+    const id = req.body.articleId;
 
-    mdArticle.create({title: title, body: body, slug: slug(title), categoryId: category}).then(
-        function(){
-            res.redirect('/admin/articles')
-    }).catch(function(err) {
-        console.log('Erro ao salvar artigo. msg: '+err);
-    })
+    if(!id){
+        mdArticle.create({title: title, body: body, slug: slug(title), categoryId: category}).then().catch(function(err) {
+            console.log('Error when saving new article. msg: '+err);
+        })
+    }else{
+        mdArticle.update(
+            {title: title, body: body, slug: slug(title), categoryId: category},
+            {where: {id: id}}
+        )
+    }
+    
+    res.redirect('/admin/articles')
 })
 
-router.get('/admin/articlesEdit/:id',  (req, res) => {
+router.post('/admin/articlesEdit/:id',  function(req, res) {
     let id = req.params.id;
 
     mdArticle.findOne({
@@ -63,7 +70,7 @@ router.get('/admin/articlesEdit/:id',  (req, res) => {
                 order:[['id','asc']],
                 attributes: ['id', 'title']
             }).then((categories) => {
-                res.render('/admin/articlesEdit', {data: article, category: categories})
+                res.render('admin/articlesEdit', {data: article, category: categories})
             })
         }else{
             res.redirect('/admin/articles')

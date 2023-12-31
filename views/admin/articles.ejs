@@ -28,11 +28,13 @@
                 <td><%= items.slug %></td>
                 <td><%= items.category.title %></td>
                 <td class="text-center">
-                    <a href="/admin/articlesEdit/<%= items.id %>" class="btn btn-warning d-inline d-lg-inline-block px-1 px-lg-2 py-0 py-lg-2 p-0"><i class="fa-solid fa-pen-to-square"></i></a>
+                    <form action="/admin/articlesEdit/<%= items.id %>" method="post" class="d-lg-inline-block d-inline">
+                        <button class="btn btn-warning px-1 px-lg-2 py-0 py-lg-2 p-0"><i class="fa-solid fa-pen-to-square"></i></button>
+                    </form>
 
                     <form action="/admin/articlesDel" method="post" class="d-inline d-lg-inline-block" onsubmit="reallyDel(event, this)">
                         <input type="hidden" name="id" id="id" value="<%= items.id %>"></input>
-                    <button type="submit" class="btn btn-danger d-inline d-lg-inline-block px-1 px-lg-3 py-0 py-lg-2 mt-1 mt-lg-0 ms-lg-2 " data-bs-toggle="tooltip" data-bs-placement="right"
+                    <button type="submit" class="btn btn-danger px-1 px-lg-3 py-0 py-lg-2 mt-1 mt-lg-0 ms-lg-2 " data-bs-toggle="tooltip" data-bs-placement="right"
                     data-bs-custom-class="custom-tooltip" data-bs-title="Exclude"><i class="fa-solid fa-delete-left"></i></button>
                     </form>
                 </td>
