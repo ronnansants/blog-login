@@ -14,15 +14,14 @@ router.get('/admin/categories', function(req,res) {
         raw: true
     }).then((list) => {
         if(list){
-            res.render('admin/categories', {
+            res.render('admin/categories/categories', {
                 items: list
             });
         }else {
-            res.render('admin/categories', {
+            res.render('admin/categories/categories', {
                 items: null
             });
         }
-        console.log('lista: '+list);
     })    
 });
 
@@ -48,7 +47,7 @@ router.get('/admin/categories/edit/:id', (req, res) => {
     let id = req.params.id;
     MdCategory.findByPk(id).then(category => {
         if (category) {
-            res.render('admin/categoriesEdit', {item: category})
+            res.render('admin/categories/categoriesEdit', {item: category})
         }else{
             res.redirect('/admin/categories');
         }

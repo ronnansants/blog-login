@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
-const connection = require('./database/database')
+const connection = require('./database/database');
+const CtlrUsers = require("./user/UserController");
 const CtlrCategories = require('./categories/CategoriesController');
 const mdCategory = require('./categories/Category');
 const CtlrArticles = require('./articles/ArticlesController');
@@ -15,6 +16,7 @@ app.use(express.json());
 // INSTANCIAR CONTOLADOR
 app.use('/', CtlrCategories);
 app.use('/',CtlrArticles);
+app.use('/', CtlrUsers);
 
 
 connection.authenticate().then(()=> {

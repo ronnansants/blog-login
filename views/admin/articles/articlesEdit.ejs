@@ -1,28 +1,32 @@
-<%- include('../partials/header.ejs'); %>
-<%- include('../partials/navbar.ejs'); %>
+<%- include('../../partials/header.ejs'); %>
+<%- include('../../partials/navbar.ejs'); %>
 <div class="container">
     <form action="/admin/articlesSave" method="post" class="bg-camo form-control my-3 pb-3">
         
         <p class="h1 fw-bold text-center text-capitalize">Article</p>
 
-        <input type="text" name="articleTitle" id="articleTitle" class="form-control my-3 text-center fw-semibold fs-3" placeholder="Title of article">
-        <textarea class="form-control" placeholder="Write body of article" name="articleBody" id="articleBody"></textarea>
-        
+        <input type="hidden" name="articleId" value="<%= data.id %>">
+
+        <input type="text" name="articleTitle" id="articleTitle" class="form-control my-3 text-center fw-semibold fs-3" placeholder="Title of article" value="<%= data.title %>">
+        <textarea class="form-control" placeholder="Write body of article" name="articleBody" id="articleBody"><%- data.body %></textarea>
         
         <p class="mt-3 h3">CATEGORY</p>
         <select name="articleCategory" class="form-control mb-4 fs-4">
             <% category.forEach((item) => { %>
-                <option value="<%= item.id%>"><%= item.title.toUpperCase() %></option>
+                <option value="<%= item.id%>" <% if(item.id == data.categoryId ) {%> selected <% } %>>
+                    <%= item.title.toUpperCase() %>
+                </option>
             <% }) %>
         </select>
 
         <div class="row mt-3 px-3">
-            <button type="submit" class="btn btn-success col-6 offset-1 d-inline" name="registerCategory">SEND</button>
-            <button type="reset" class="btn btn-danger d-inline col-2 offset-2">Clear</button>
+            <button type="submit" class="btn btn-success btn-lg col d-inline fs-3 fw-bolder" id="sendArticle">SEND</button>
+            <button type="reset" class="btn btn-outline-danger btn-sm d-inline col-2 ms-2 fs-6 fst-italic fw-bolder" onclick="confirmRestory(this)">Restore Article</button>
         </div>
     </form>
 </div>
-<%- include('../partials/footer.ejs'); %>
+<%- include('../../partials/footer.ejs'); %>
+<script src="/js/validations/articleFields.js"></script>
 <script src="/tinymce/tinymce.min.js"></script>
 <script>
     tinymce.init({
@@ -37,5 +41,5 @@
         ],
         ai_request: (request, respondWith) => respondWith.string(() => Promise.reject("See docs to implement AI Assistant")),
         height: 500
-    })
+    });
 </script>

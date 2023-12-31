@@ -11,7 +11,7 @@ router.get('/article=:slug', function(req, res){
         }
     }).then(function(data){
         if(data){
-            res.render('article', {itens: data})
+            res.render('admin/articles/article', {itens: data})
         }else{
             res.redirect('index');
         }
@@ -27,14 +27,14 @@ router.get('/admin/articles',  (req, res) => {
             attributes: ['title']
         }]
     }).then((data)=>{
-        res.render('admin/articles', { items: data })
+        res.render('admin/articles/articles', { items: data })
     })
 
 })
 
 router.get('/admin/articlesNew', function(req, res) {
     mdCategory.findAll({order: [['title', 'asc']]}).then( itens => {
-        res.render('admin/articlesNew',{category: itens })
+        res.render('admin/articles/articlesNew',{category: itens })
     })
 });
 
@@ -70,7 +70,7 @@ router.post('/admin/articlesEdit/:id',  function(req, res) {
                 order:[['id','asc']],
                 attributes: ['id', 'title']
             }).then((categories) => {
-                res.render('admin/articlesEdit', {data: article, category: categories})
+                res.render('admin/articles/articlesEdit', {data: article, category: categories})
             })
         }else{
             res.redirect('/admin/articles')
