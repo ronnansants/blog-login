@@ -3,8 +3,12 @@ const slugify = require('slugify');
 function slug(word) {
     return slugify(word, { 
         lower: true,
-        remove: /[*+~.,()'"!:@#%&{}<>\[\];=\\|\/\s]/g
-        ///[*+~.,()'"!:@]/g
+        replacement: '-',
+        remove: /[*+~.,()´`^'"!;:@#$%¨&*(){}]/g
+
+        // /[*+~.,()'"!:@]/g
+        // /[*+~.,()'"!:@#%&{}<>\[\];=\\|\/\s]/g
+                
     });
 }
 

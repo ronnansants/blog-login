@@ -17,12 +17,13 @@
         </select>
 
         <div class="row mt-3 px-3">
-            <button type="submit" class="btn btn-success col-6 offset-1 d-inline" name="registerCategory">SEND</button>
-            <button type="reset" class="btn btn-danger d-inline col-2 offset-2">Clear</button>
+            <button type="submit" class="btn btn-success btn-lg col d-inline fs-3 fw-bolder" id="sendArticle">SEND</button>
+            <button type="reset" class="btn btn-danger btn-sm d-inline col-2 ms-2 fs-5 fst-italic fw-bolder">Clear</button>
         </div>
     </form>
 </div>
 <%- include('../../partials/footer.ejs'); %>
+<script src="/js/validations/articleFields.js"></script>
 <script src="/tinymce/tinymce.min.js"></script>
 <script>
     tinymce.init({
