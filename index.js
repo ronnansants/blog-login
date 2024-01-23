@@ -1,5 +1,8 @@
 const express = require('express');
 const app = express();
+
+const session = require('express-session')
+
 const connection = require('./database/database');
 const CtlrUsers = require("./user/UserController");
 const CtlrCategories = require('./categories/CategoriesController');
@@ -13,16 +16,45 @@ app.use(express.static('public'));
 app.use(express.urlencoded({extended: false}));
 app.use(express.json());
 
-// INSTANCIAR CONTOLADOR
-app.use('/', CtlrCategories);
-app.use('/',CtlrArticles);
-app.use('/', CtlrUsers);
+//Sessions
+app.use(session({
+    secret: "secret",  // segredo da sessão
+    resave: false,     // salva a sessão mesmo sem alterações
+    saveUninitialized: true,   //salvar se não iniciada,
+    cookie: { maxAge: 172800000 }
+}))
 
+// CONTROLLERS ROUTER
+app.use('/', CtlrCategories);
+app.use('/', CtlrArticles);
+app.use('/', CtlrUsers);
 
 connection.authenticate().then(()=> {
     console.log("Conexão com o banco de dados realizada com sucesso!");
 }).catch((err)=>{
     console.log(err);
+})
+
+// app.get('/session', (req, res) =>{
+//     req.session.site = 'mypress',
+//     req.session.user = {
+//         id: 2,
+//         email: 'carloseduardo.ssp@example.com',
+//     };
+//     return res.send("Generated session");
+// })
+
+app.get('/reader', (req, res) =>{
+    res.json({
+        site: req.session.site,
+        user: req.session.user
+    })
+
+    // if(!req.session.email){
+    //     return res.redirect("/")
+    // }else{
+    //     next();
+    // }
 })
 
 app.get('/', function(req, res) {

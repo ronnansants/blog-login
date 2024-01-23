@@ -1,0 +1,24 @@
+<%- include('../../partials/header.ejs'); %>
+<%- include('../../partials/navbar.ejs'); %>
+
+<div class="container my-5">
+<div class="card bg-camo">
+    <form action="/authenticate" method="post">
+        <div class="card-header">
+            <h1 class="text-center text-uppercase font-monospace fw-semibold">Log In</h1>
+        </div>
+        <div class="card-body fw-medium">
+            <label class="fs-3 form-label mt-3" for="userEmail">E-mail</label>
+            <input type="email" name="email" id="userEmail" class="form-control form-">
+
+            <label class="fs-3 form-label mt-3" for="userPassword">Password:</label>
+            <input type="password" name="password" id="userPassword" class="form-control mb-3">
+        </div>
+        <div class="card-footer">
+            <button type="submit" class="btn btn-success w-100">Login</button>
+        </div>
+    </form>
+</div>
+</div>
+
+<%- include('../../partials/footer.ejs'); %>

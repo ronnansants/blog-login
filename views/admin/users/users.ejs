@@ -1,0 +1,62 @@
+<%- include('../../partials/header.ejs'); %>
+<%- include('../../partials/navbar.ejs'); %>
+<div class="container">
+    <div class="row">
+        <a href="/admin/usersCreate" class="btn text-center btn-success fs-3 w-100 fw-bolder my-3">Create User</a>
+    </div>
+    <div class="my-3 text-center text-body-secondary">
+        <span class="h2 fw-bold text-capitalize">Registered</span>
+    </div>
+</div>
+<div class="container-lg p-0">
+    <% if(items.length > 0 && items != null) { %>
+        <table class="table table-dark table-hover table-striped table-bordered">
+            <thead>
+              <tr class="text-center">
+                <th scope="col" class="text-center col-1">ID</th>
+                <th scope="col" class="col-4 overflow-auto">Name</th>
+                <th scope="col" class="col">EMAIL</th>
+                <th class="text-center col-1">Actions</th>
+              </tr>
+            </thead>
+            <tbody class="text-center align-middle">
+    <% items.forEach( (items)=>{ %>
+              <tr class="">
+                <td scope="row" class="text-center col-1"><%= items.id %></td>
+                <td class="col-4 text-uppercase table-responsive"><%= items.name %></td>
+                <td class="col"><%= items.email %></td>
+                <td class="col-1 text-center">
+                    <!-- <form action="/admin/articlesEdit/<%= items.id %>" method="post" class="d-lg-inline-block d-inline">
+                        <button class="btn btn-warning px-1 px-lg-2 py-0 py-lg-2 p-0"><i class="fa-solid fa-pen-to-square"></i></button>
+                    </form> -->
+
+                    <form action="/admin/userDel" method="post" class="d-inline d-lg-inline-block" onsubmit="reallyDel(event, this)">
+                        <input type="hidden" name="id" id="id" value="<%= items.id %>"></input>
+                    <button type="submit" class="btn btn-danger px-1 px-lg-3 py-0 py-lg-2 mt-1 mt-lg-0 ms-lg-2 " data-bs-toggle="tooltip" data-bs-placement="right"
+                    data-bs-custom-class="custom-tooltip" data-bs-title="Exclude"><i class="fa-solid fa-delete-left"></i></button>
+                    </form>
+                </td>
+              </tr>
+
+    <% }) %>
+            </tbody>
+        </table>
+
+    <% }else{ %>
+    <div class="card">
+        <div class="card-body text-center">
+            <p class="fs-4 text-capitalize">No registered users</p>
+        </div>
+    </div>
+    <% } %>
+</div>
+<%- include('../../partials/footer.ejs'); %>
+<script>
+    function reallyDel(event, form){
+        event.preventDefault();
+        let exclude = confirm("Confirm delete this user?");
+        if(exclude){
+            form.submit();
+        }
+    }
+</script>
