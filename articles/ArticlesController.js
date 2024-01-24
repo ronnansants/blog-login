@@ -3,6 +3,7 @@ const router = express.Router();
 const mdCategory = require('../categories/Category')
 const mdArticle = require('../articles/Article')
 const slug = require('../operations/slug');
+const adminAuth = require('../middleware/adminAuth')
 
 router.get('/article=:slug', function(req, res){
     mdArticle.findOne({
@@ -18,7 +19,7 @@ router.get('/article=:slug', function(req, res){
     })
 })
 
-router.get('/admin/articles',  (req, res) => {
+router.get('/admin/articles', adminAuth,  (req, res) => {
     mdArticle.findAll({
         order: [['id','DESC']],
         attributes: ['id', 'title', 'slug'],
@@ -32,7 +33,7 @@ router.get('/admin/articles',  (req, res) => {
 
 })
 
-router.get('/admin/articlesNew', function(req, res) {
+router.get('/admin/articlesNew', adminAuth, function(req, res) {
     mdCategory.findAll({order: [['title', 'asc']]}).then( itens => {
         res.render('admin/articles/articlesNew',{category: itens })
     })
@@ -58,7 +59,7 @@ router.post('/admin/articlesSave', function(req, res) {
     res.redirect('/admin/articles')
 })
 
-router.post('/admin/articlesEdit/:id',  function(req, res) {
+router.post('/admin/articlesEdit/:id', adminAuth, function(req, res) {
     let id = req.params.id;
 
     mdArticle.findOne({
@@ -80,7 +81,7 @@ router.post('/admin/articlesEdit/:id',  function(req, res) {
     })
 })
 
-router.post('/admin/articlesDel', function(req, res){
+router.post('/admin/articlesDel', adminAuth, function(req, res){
     let id = req.body.id;
 
     if(id != undefined){
